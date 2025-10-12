@@ -32,10 +32,10 @@ export const respondToAIQuery = async (
             input: query
         });
 
-        const aiResponse = response.output
+        const aiResponse = (response.output as Array<{ type: string; content: Array<{ type: string; text: string }> }>)
             .filter((o) => o.type === "message")
             .map((el) => {
-                return el.content
+                return (el.content as Array<{ type: string; text: string }> )
                     .filter((c) => c.type === "output_text")
                     .map((t) => t.text)
                     .join("\n");
