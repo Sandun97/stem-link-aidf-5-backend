@@ -11,20 +11,8 @@ export const createBooking = async (req: Request, res: Response, next: NextFunct
         if (!result.success) {
             throw new ValidationError(`${result.error.message}`);
         }
-
-        // Set the created date for the booking
-        const bookingPayload = {
-            ...result.data,
-            createdAt: new Date()
-        };
-
-        const booking = await Booking.create(bookingPayload);
-
-        // Send back the created booking, including its created date and id
-        res.status(201).json({
-            id: booking._id,
-            ...booking.toObject()
-        });
+        await Booking.create(result.data);
+        res.status(201).send();
     } catch (error) {
         console.log(error)
         next(error);
@@ -33,6 +21,8 @@ export const createBooking = async (req: Request, res: Response, next: NextFunct
 
 export const checkBookingAvailability = async (req: Request, res: Response, next: NextFunction) => {
     try {
+
+        // console.log('check booking');
         // Accept payload from req.body (POST) or req.query (GET)
         const { hotelId, checkIn, checkOut } = req.method === "GET" ? req.query : req.body;
 
