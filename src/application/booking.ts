@@ -11,8 +11,12 @@ export const createBooking = async (req: Request, res: Response, next: NextFunct
         if (!result.success) {
             throw new ValidationError(`${result.error.message}`);
         }
-        await Booking.create(result.data);
-        res.status(201).send();
+        const createdBooking = await Booking.create(result.data);
+        const bookingWithId = {
+            ...createdBooking.toObject(),
+            id: createdBooking.id || createdBooking._id?.toString()
+        };
+        res.status(201).send(bookingWithId);
     } catch (error) {
         console.log(error)
         next(error);

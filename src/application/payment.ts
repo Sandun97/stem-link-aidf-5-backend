@@ -91,7 +91,7 @@ export const createCheckoutSession = async (req: Request, res: Response, next: N
         res.json({ url: session.url });
 
     } catch (error) {
-        console.error("Stripe error:", error);
+        // console.error("Stripe error:", error);
         if (error instanceof ValidationError) {
             res.status(400).json({ error: error.message });
         } else {
@@ -107,7 +107,7 @@ export const getCheckoutSession = async (req: Request, res: Response, next: Next
             ? req.query.session_id
             : req.body?.session_id) as string;
 
-    console.log(sessionId);
+    // console.log(sessionId);
     if (!sessionId)
         return res.status(400).json({ error: "session_id is required" });
 
@@ -138,7 +138,7 @@ export const getCheckoutSession = async (req: Request, res: Response, next: Next
             metadata: session.metadata,
         });
     } catch (err: any) {
-        console.error("Retrieve session error:", err.message);
+        // console.error("Retrieve session error:", err.message);
         res.status(500).json({ error: err.message });
     }
 };
