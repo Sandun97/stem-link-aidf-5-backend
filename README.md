@@ -1,6 +1,17 @@
-# Hotel Backend
+# Hotel Management System – Frontend (React + Vite)
 
-This is the backend for the Hotel Management System.
+This is the frontend application for the Hotel Management System, built with React and Vite.
+
+---
+
+## Repositories
+
+- **Frontend (this repo):** [hotel-frontend](https://github.com/Sandun97/stem-link-aidf-5-frontend.git)
+- **Backend:** [hotel-backend](https://github.com/Sandun97/stem-link-aidf-5-backend.git)
+
+> Make sure to clone and set up both the frontend and backend repositories for full functionality.
+
+---
 
 ## Node Version
 
