@@ -57,7 +57,29 @@ export const checkBookingAvailability = async (req: Request, res: Response, next
             res.status(200).json({ availability: true });
         }
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         next(error);
     }
 };
+
+export const getBookings = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { checkIn, checkOut } = req.method === "GET" ? req.query : req.body;
+
+        if (!checkIn || !checkOut) {
+            throw new ValidationError("checkIn and checkOut are required");
+        }
+
+        const startDate = new Date(checkIn as string);
+        const endDate = new Date(checkOut as string);
+
+        const bookingDetails = await Booking.find({
+            checkIn: { $lt: endDate },
+            checkOut: { $gt: startDate }
+        }).populate('hotelId', 'name');
+
+        res.status(200).json(bookingDetails);
+    } catch (error) {
+        next(error);
+    }
+} 
