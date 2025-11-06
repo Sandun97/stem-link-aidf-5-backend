@@ -15,7 +15,7 @@ bookingsRouter
 
 bookingsRouter
     .route("/checkBookingAvailability")
-    .get(isAdmin, isAuthenticated, checkBookingAvailability);
+    .get(isAuthenticated, checkBookingAvailability);
 
 bookingsRouter
     .route("/getBookings")
