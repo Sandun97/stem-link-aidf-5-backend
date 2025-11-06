@@ -11,7 +11,7 @@ const bookingsRouter = express.Router();
 
 bookingsRouter
     .route("/")
-    .post(isAdmin, isAuthenticated, createBooking);
+    .post(isAuthenticated, createBooking);
 
 bookingsRouter
     .route("/checkBookingAvailability")
